@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客製化營運管理系統｜客戶需求分析表</title>
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        section {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #111827;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background-color: var(--primary-color);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label.main-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .checkbox-group.wide {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            font-size: 14px;
+            color: #4B5563;
+        }
+
+        .other-input {
+            display: flex;
+            align-items: center;
+            grid-column: 1 / -1;
+            margin-top: 5px;
+        }
+
+        .other-input input[type="text"] {
+            margin-left: 10px;
+            width: calc(100% - 100px);
+            padding: 6px 10px;
+        }
+
+        button.submit-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        button.submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .inline-inputs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .inline-inputs input {
+            width: 100px;
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>客製化營運管理系統｜客戶需求分析表</h1>
+        <p>感謝您願意提供目前的營運流程與需求資訊。<br>本問卷希望能了解您目前實際的工作方式與痛點，我們將據此提出最適合的系統規劃。</p>
+    </div>
+
+    <form id="requirementsForm">
+        
+        <!-- 一、基本資料 -->
+        <section>
+            <h2>一、基本資料</h2>
+            <div class="form-group">
+                <label class="main-label">公司／品牌名稱：</label>
+                <input type="text" name="1.公司/品牌名稱" required>
+            </div>
+            <div class="form-group">
+                <label class="main-label">主要聯絡人：</label>
+                <input type="text" name="1.主要聯絡人" required>
+            </div>
+            <div class="form-group">
+                <label class="main-label">產業類別：</label>
+                <input type="text" name="1.產業類別" required>
+            </div>
+            <div class="form-group inline-inputs">
+                <label class="main-label" style="margin:0;">目前團隊人數：</label>
+                <input type="number" name="1.目前團隊人數" min="1"> 人
+            </div>
+            <div class="form-group inline-inputs">
+                <label class="main-label" style="margin:0;">預計使用系統的人數：</label>
+                <input type="number" name="1.預計使用系統人數" min="1"> 人
+            </div>
+            
+            <div class="form-group">
+                <label class="main-label">主要營業模式 (可複選)：</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="實體門市" id="bm1"><label for="bm1">實體門市</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="網路銷售" id="bm2"><label for="bm2">網路銷售</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="批發" id="bm3"><label for="bm3">批發</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="零售" id="bm4"><label for="bm4">零售</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="接案/專案型服務" id="bm5"><label for="bm5">接案/專案型服務</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="預約型服務" id="bm6"><label for="bm6">預約型服務</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="B2B" id="bm7"><label for="bm7">B2B</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="1.主要營業模式" value="B2C" id="bm8"><label for="bm8">B2C</label></div>
+                </div>
+                <div class="other-input">
+                    <label>其他：</label>
+                    <input type="text" name="1.主要營業模式_其他">
+                </div>
+            </div>
+        </section>
+
+        <!-- 二、目前怎麼管理公司？ -->
+        <section>
+            <h2>二、目前怎麼管理公司？</h2>
+            <div class="form-group">
+                <label class="main-label">目前主要使用哪些工具？ (可複選)</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="Excel" id="tool1"><label for="tool1">Excel</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="Google Sheet" id="tool2"><label for="tool2">Google Sheet</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="紙本" id="tool3"><label for="tool3">紙本</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="LINE" id="tool4"><label for="tool4">LINE</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="Messenger" id="tool5"><label for="tool5">Messenger</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="Email" id="tool6"><label for="tool6">Email</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="POS" id="tool7"><label for="tool7">POS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="ERP" id="tool8"><label for="tool8">ERP</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="會計軟體" id="tool9"><label for="tool9">會計軟體</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="2.使用工具" value="沒有固定系統" id="tool10"><label for="tool10">沒有固定系統</label></div>
+                </div>
+                <div class="other-input">
+                    <label>其他系統：</label>
+                    <input type="text" name="2.使用工具_其他">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="main-label">請簡單描述目前一天的工作流程：</label>
+                <p style="font-size:13px; color:#666; margin-top:-5px;">例如：收到訂單 → 登記資料 → 確認庫存 → 出貨 → 收款 → 對帳</p>
+                <textarea name="2.目前工作流程" rows="4"></textarea>
+            </div>
+        </section>
+
+        <!-- 三、目前最困擾你的事情 -->
+        <section>
+            <h2>三、目前最困擾你的事情</h2>
+            <div class="form-group">
+                <label class="main-label">如果只能改善三件事情，你最希望改善什麼？</label>
+                <input type="text" name="3.最希望改善_第一名" placeholder="第一名" style="margin-bottom:10px;">
+                <input type="text" name="3.最希望改善_第二名" placeholder="第二名" style="margin-bottom:10px;">
+                <input type="text" name="3.最希望改善_第三名" placeholder="第三名">
+            </div>
+            
+            <div class="form-group">
+                <label class="main-label">以下哪些問題目前經常發生？ (可複選)</label>
+                <div class="checkbox-group wide">
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="資料散落在不同 Excel/Sheet" id="prob1"><label for="prob1">資料散落在不同 Excel/Sheet</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="LINE 訊息很多，容易找不到資料" id="prob2"><label for="prob2">LINE 訊息很多，容易找不到資料</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="訂單容易漏掉" id="prob3"><label for="prob3">訂單容易漏掉</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="不知道哪些訂單還沒完成" id="prob4"><label for="prob4">不知道哪些訂單還沒完成</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="不知道哪些客戶還沒付款" id="prob5"><label for="prob5">不知道哪些客戶還沒付款</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="庫存數量常常不準" id="prob6"><label for="prob6">庫存數量常常不準</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="出貨後忘記扣庫存" id="prob7"><label for="prob7">出貨後忘記扣庫存</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="不知道商品剩多少" id="prob8"><label for="prob8">不知道商品剩多少</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="不知道什麼東西需要補貨" id="prob9"><label for="prob9">不知道什麼東西需要補貨</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="客戶資料散落各處" id="prob10"><label for="prob10">客戶資料散落各處</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="查歷史訂單很麻煩" id="prob11"><label for="prob11">查歷史訂單很麻煩</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="每月底對帳很花時間" id="prob12"><label for="prob12">每月底對帳很花時間</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="收入/支出難整理" id="prob13"><label for="prob13">收入/支出難整理</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="老闆無法快速知道營運狀況" id="prob14"><label for="prob14">老闆無法快速知道營運狀況</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="同一份資料需要重複輸入很多次" id="prob15"><label for="prob15">同一份資料需要重複輸入很多次</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="不同員工使用自己的紀錄方式" id="prob16"><label for="prob16">不同員工使用自己的紀錄方式</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="常常需要人工計算" id="prob17"><label for="prob17">常常需要人工計算</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="常常需要複製貼上資料" id="prob18"><label for="prob18">常常需要複製貼上資料</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="不容易製作報表" id="prob19"><label for="prob19">不容易製作報表</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="現有系統功能太複雜" id="prob20"><label for="prob20">現有系統功能太複雜</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="3.經常發生問題" value="現有系統不符合公司流程" id="prob21"><label for="prob21">現有系統不符合公司流程</label></div>
+                </div>
+                <div class="other-input" style="margin-top:10px;">
+                    <label>其他問題：</label>
+                    <input type="text" name="3.經常發生問題_其他">
+                </div>
+            </div>
+        </section>
+
+        <!-- 四、時間成本 -->
+        <section>
+            <h2>四、時間成本</h2>
+            <p style="font-size:14px; color:#666;">目前每週大約花多少時間處理以下事情？</p>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">訂單整理：</label><input type="number" name="4.時間_訂單整理" step="0.5"> 小時/週</div>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">庫存確認：</label><input type="number" name="4.時間_庫存確認" step="0.5"> 小時/週</div>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">對帳/收款確認：</label><input type="number" name="4.時間_對帳收款" step="0.5"> 小時/週</div>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">客戶資料整理：</label><input type="number" name="4.時間_客戶資料" step="0.5"> 小時/週</div>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">製作報表：</label><input type="number" name="4.時間_製作報表" step="0.5"> 小時/週</div>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">資料重複輸入：</label><input type="number" name="4.時間_資料重複" step="0.5"> 小時/週</div>
+            <div class="form-group inline-inputs"><label class="main-label" style="width:130px; margin:0;">其他行政工作：</label><input type="number" name="4.時間_其他行政" step="0.5"> 小時/週</div>
+            
+            <div class="form-group" style="margin-top:20px;">
+                <label class="main-label">哪一項工作讓你覺得「最浪費時間」？</label>
+                <input type="text" name="4.最浪費時間工作">
+            </div>
+        </section>
+
+        <!-- （中間模塊：五到十二）整合精簡版以展示所有功能 -->
+        <section>
+            <h2>五～十、各模組需求評估</h2>
+            
+            <!-- 訂單 -->
+            <div class="form-group">
+                <label class="main-label">【訂單管理】目前是否有需求？</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="radio" name="5.訂單需求" value="有" id="ord1"><label for="ord1">有</label></div>
+                    <div class="checkbox-item"><input type="radio" name="5.訂單需求" value="沒有" id="ord2"><label for="ord2">沒有</label></div>
+                    <div class="checkbox-item"><input type="radio" name="5.訂單需求" value="未來可能需要" id="ord3"><label for="ord3">未來可能需要</label></div>
+                </div>
+            </div>
+
+            <!-- 庫存 -->
+            <div class="form-group">
+                <label class="main-label">【庫存管理】是否需要管理庫存？</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="radio" name="6.庫存需求" value="需要" id="inv1"><label for="inv1">需要</label></div>
+                    <div class="checkbox-item"><input type="radio" name="6.庫存需求" value="不需要" id="inv2"><label for="inv2">不需要</label></div>
+                </div>
+            </div>
+
+            <!-- 客戶 -->
+            <div class="form-group">
+                <label class="main-label">【客戶管理】是否希望建立客戶資料庫？</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="radio" name="7.客戶需求" value="是" id="crm1"><label for="crm1">是</label></div>
+                    <div class="checkbox-item"><input type="radio" name="7.客戶需求" value="否" id="crm2"><label for="crm2">否</label></div>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="form-group">
+                <label class="main-label">【數據看板】每天打開系統最想看到的5個數字：(可複選)</label>
+                <div class="checkbox-group wide">
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="今日營業額" id="db1"><label for="db1">今日營業額</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="本月營業額" id="db2"><label for="db2">本月營業額</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="訂單數" id="db3"><label for="db3">訂單數</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="未完成訂單" id="db4"><label for="db4">未完成訂單</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="未收款" id="db5"><label for="db5">未收款</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="庫存不足" id="db6"><label for="db6">庫存不足</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="9.想看數字" value="毛利與現金流" id="db7"><label for="db7">毛利與現金流</label></div>
+                </div>
+            </div>
+            
+             <!-- 自動化 -->
+            <div class="form-group">
+                <label class="main-label">【自動化需求】哪些工作自動化對你最有幫助？ (可複選)</label>
+                <div class="checkbox-group wide">
+                    <div class="checkbox-item"><input type="checkbox" name="12.自動化" value="訂單成立自動扣庫存"><label>訂單成立自動扣庫存</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="12.自動化" value="自動計算營收與毛利"><label>自動計算營收與毛利</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="12.自動化" value="自動提醒未收款/庫存不足"><label>自動提醒未收款/庫存不足</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="12.自動化" value="AI協助整理資料與分析"><label>AI協助整理資料與分析</label></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 十三、目前最希望改善的情境 -->
+        <section>
+            <h2>十三、最希望改善的情境</h2>
+            <div class="form-group">
+                <label class="main-label">請完成下面這句話：</label>
+                <p>「如果這套系統可以幫我 <input type="text" name="13.情境造句" style="width:60%; display:inline-block;">，我會覺得非常值得。」</p>
+            </div>
+        </section>
+
+        <!-- 十五、需求優先順序 -->
+        <section>
+            <h2>十五、需求優先順序</h2>
+            <div class="form-group">
+                <label class="main-label">A｜一定要有 (沒有無法使用)：</label>
+                <textarea name="15.A級需求" rows="3" placeholder="1. &#10;2. &#10;3."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="main-label">B｜希望有 (第一階段沒有也可以)：</label>
+                <textarea name="15.B級需求" rows="2"></textarea>
+            </div>
+        </section>
+
+        <!-- 十七、專案期待 -->
+        <section>
+            <h2>十七、專案期待</h2>
+            <div class="form-group">
+                <label class="main-label">最希望導入系統帶來什麼結果？ (可複選)</label>
+                <div class="checkbox-group wide">
+                    <div class="checkbox-item"><input type="checkbox" name="17.期待結果" value="減少人工操作/節省時間"><label>減少人工操作/節省時間</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="17.期待結果" value="降低錯誤/提高效率"><label>降低錯誤/提高效率</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="17.期待結果" value="清楚掌握營運數字"><label>清楚掌握營運數字</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="17.期待結果" value="未來公司擴張更容易管理"><label>未來公司擴張更容易管理</label></div>
+                </div>
+            </div>
+        </section>
+
+        <button type="submit" class="submit-btn" id="submitBtn">送出需求表</button>
+        <div id="loading">資料傳送中，請稍候...</div>
+    </form>
+</div>
+
+<script>
+document.getElementById('requirementsForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // 直接將您的 Webhook 網址寫死在程式碼中
+    const webhookUrl = 'https://discord.com/api/webhooks/1541478701592617036/oOjkefJTODnqHyBgsEgByVa6uM2d7aSfq-o5yBTcDN3adUvuAhVqe1GL-CeAsV3vFtM5';
+
+    const submitBtn = document.getElementById('submitBtn');
+    const loading = document.getElementById('loading');
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    loading.style.display = 'block';
+
+    const formData = new FormData(this);
+    const dataObj = {};
+
+    // 處理表單資料，把同名的 checkbox 合併成逗號分隔字串
+    for (let [key, value] of formData.entries()) {
+        if (!value.trim()) continue; // 跳過空值
+        
+        if (dataObj[key]) {
+            dataObj[key] += '、' + value;
+        } else {
+            dataObj[key] = value;
+        }
+    }
+
+    // 將資料格式化為 Discord 易讀的文本
+    const timestamp = new Date().toLocaleString('zh-TW');
+    let messageText = `📊 **【系統需求分析表】新回覆通知** (${timestamp})\n\n`;
+    
+    let currentSection = "";
+    for (const [key, value] of Object.entries(dataObj)) {
+        // 簡單解析題號作為段落區隔 (例如 "1.公司名稱" -> "1")
+        const sectionMatch = key.match(/^(\d+)\./);
+        if (sectionMatch && sectionMatch[1] !== currentSection) {
+            currentSection = sectionMatch[1];
+            messageText += `\n--- **第 ${currentSection} 部分** ---\n`;
+        }
+        
+        // 移除題號前綴，讓顯示更乾淨
+        const cleanKey = key.replace(/^\d+\./, '');
+        messageText += `🔹 **${cleanKey}**: ${value}\n`;
+    }
+
+    // Discord 單則訊息上限為 2000 字元，進行分段處理
+    const MAX_LENGTH = 1900;
+    const chunks = [];
+    let currentChunk = "";
+    
+    const lines = messageText.split('\n');
+    for (let line of lines) {
+        if (currentChunk.length + line.length + 1 > MAX_LENGTH) {
+            chunks.push(currentChunk);
+            currentChunk = "";
+        }
+        currentChunk += line + '\n';
+    }
+    if (currentChunk) chunks.push(currentChunk);
+
+    // 依序傳送資料到 Discord
+    try {
+        for (let i = 0; i < chunks.length; i++) {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    content: chunks[i],
+                    username: "系統需求收集機器人",
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`傳送失敗 (狀態碼: ${response.status})`);
+            }
+        }
+        
+        alert('🎉 需求表已成功送出！顧問將盡快與您聯繫。');
+        this.reset();
+        
+    } catch (error) {
+        console.error(error);
+        alert('❌ 傳送失敗，請檢查網路狀態。');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        loading.style.display = 'none';
+    }
+});
+</script>
+</body>
+</html>
