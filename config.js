@@ -1,5 +1,5 @@
 window.APP_CONFIG = {
-  BRAND_NAME: "Your Brand",
+  BRAND_NAME: "Aaron System",
   BRAND_MARK: "A",
   PAGE_TITLE: "企業營運系統｜客戶需求分析",
   PAGE_SUBTITLE: "不用懂程式，也不用先想好功能名稱。只要告訴我們您現在怎麼工作、哪裡最困擾，以及希望未來系統幫您做到什麼。",
