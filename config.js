@@ -8,7 +8,7 @@ window.APP_CONFIG = {
 
   // 部署 Google Apps Script Web App 後，把網址貼在這裡。
   // 例如：https://script.google.com/macros/s/xxxxxxxxxxxxxxxx/exec
-  SUBMIT_ENDPOINT: "",
+  SUBMIT_ENDPOINT: "https://script.google.com/macros/s/AKfycbzIodXkDs3vqoxeGWIuE4Oj0UZiG3hbGDHo1yCsgsRty1O12P9D1mgwlhMkzpnPx4DVDA/exec",
 
   // 可選。顯示於頁尾或日後擴充聯絡資訊。
   CONTACT_TEXT: ""
